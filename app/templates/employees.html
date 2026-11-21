@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block content %}<h2 class="mb-4">Employee management</h2>
+<div class="card mb-4"><div class="card-body"><h5>Add employee</h5><form method="post" action="/employees" class="row g-3">
+<div class="col-md-2"><label class="form-label">Employee code</label><input class="form-control" name="code" required></div>
+<div class="col-md-3"><label class="form-label">Full name</label><input class="form-control" name="full_name" required></div>
+<div class="col-md-2"><label class="form-label">Username</label><input class="form-control" name="username" required></div>
+<div class="col-md-2"><label class="form-label">Initial password</label><input class="form-control" name="password" type="password" minlength="10" required></div>
+<div class="col-md-3"><label class="form-label">Email</label><input class="form-control" name="email" type="email"></div>
+<div class="col-md-4"><label class="form-label">Department</label><select class="form-select" name="department_id">{% for d in departments %}<option value="{{ d.id }}">{{ d.name }}</option>{% endfor %}</select></div>
+<div class="col-md-4"><label class="form-label">Shift</label><select class="form-select" name="shift_id">{% for s in shifts %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}</select></div>
+<div class="col-12"><button class="btn btn-primary">Create employee and login</button></div></form></div></div>
+<div class="card"><div class="card-body"><h5>Employees</h5><div class="table-responsive"><table class="table"><thead><tr><th>Code</th><th>Name</th><th>Department</th><th>Shift</th><th>Status</th><th></th></tr></thead><tbody>
+{% for e in rows %}<tr><td>{{ e.code }}</td><td>{{ e.full_name }}</td><td>{{ e.department.name if e.department else "-" }}</td><td>{{ e.shift.name }}</td><td>{{ "Active" if e.is_active else "Inactive" }}</td><td>{% if e.is_active %}<form method="post" action="/employees/{{ e.id }}/deactivate"><button class="btn btn-sm btn-outline-danger">Deactivate</button></form>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div></div></div>{% endblock %}

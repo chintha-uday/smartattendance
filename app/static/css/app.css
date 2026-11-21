@@ -1,0 +1,6 @@
+body { background: #f5f7fb; }
+.navbar .nav-link { padding-left: .25rem; padding-right: .25rem; }
+.card { border: 1px solid #e7eaf0; border-radius: 12px; }
+.stat { height: 100%; }
+.stat h2, .stat h3 { margin: .4rem 0 0; font-weight: 700; }
+footer { border-top: 1px solid #e7eaf0; }

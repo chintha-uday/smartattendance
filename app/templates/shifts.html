@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block content %}<h2 class="mb-4">Shift management</h2>
+<div class="card mb-4"><div class="card-body"><form method="post" action="/shifts" class="row g-3">
+<div class="col-md-3"><label class="form-label">Shift name</label><input class="form-control" name="name" required></div>
+<div class="col-md-2"><label class="form-label">Start</label><input class="form-control" type="time" name="start_time" value="09:00" required></div>
+<div class="col-md-2"><label class="form-label">End</label><input class="form-control" type="time" name="end_time" value="18:00" required></div>
+<div class="col-md-2"><label class="form-label">Grace minutes</label><input class="form-control" type="number" name="grace_minutes" value="10" min="0"></div>
+<div class="col-md-3 d-flex align-items-end"><button class="btn btn-primary">Add shift</button></div></form></div></div>
+<div class="card"><div class="card-body"><table class="table"><thead><tr><th>Shift</th><th>Start</th><th>End</th><th>Grace</th></tr></thead><tbody>{% for s in rows %}<tr><td>{{ s.name }}</td><td>{{ s.start_time }}</td><td>{{ s.end_time }}</td><td>{{ s.grace_minutes }} min</td></tr>{% endfor %}</tbody></table></div></div>{% endblock %}

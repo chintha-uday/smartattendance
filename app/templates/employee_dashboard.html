@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h2>My attendance</h2><div class="text-muted">{{ today }}</div></div><span class="badge text-bg-primary">Employee</span></div>
+<div class="row g-3"><div class="col-md-3"><div class="card stat"><div class="card-body"><div class="text-muted">Status</div><h3>{{ attendance.status if attendance else "Not marked" }}</h3></div></div></div>
+<div class="col-md-3"><div class="card stat"><div class="card-body"><div class="text-muted">Check-in</div><h3>{{ session.check_in_time.strftime("%I:%M %p") if session else "--" }}</h3></div></div></div>
+<div class="col-md-3"><div class="card stat"><div class="card-body"><div class="text-muted">Check-out</div><h3>{{ session.check_out_time.strftime("%I:%M %p") if session and session.check_out_time else "--" }}</h3></div></div></div>
+<div class="col-md-3"><div class="card stat"><div class="card-body"><div class="text-muted">Work minutes</div><h3>{{ attendance.work_minutes if attendance and attendance.work_minutes is not none else "In progress" }}</h3></div></div></div></div>
+<div class="card mt-4"><div class="card-body"><h5>Attendance action</h5><div class="d-flex gap-2">
+{% if not session %}<form method="post" action="/attendance/check-in"><button class="btn btn-success btn-lg">Check in</button></form>
+{% elif not session.check_out_time %}<form method="post" action="/attendance/check-out"><button class="btn btn-danger btn-lg">Check out</button></form>
+{% else %}<span class="text-success">Your attendance for today is complete.</span>{% endif %}
+<a class="btn btn-outline-secondary btn-lg" href="/attendance">View history</a></div></div></div>
+{% endblock %}

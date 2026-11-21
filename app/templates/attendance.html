@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block content %}<h2 class="mb-4">Attendance history</h2>
+<div class="card"><div class="card-body"><div class="table-responsive"><table class="table table-striped"><thead><tr><th>Employee</th><th>Date</th><th>Status</th><th>Work minutes</th><th>Late minutes</th></tr></thead><tbody>
+{% for a in rows %}<tr><td>{{ a.employee.full_name if a.employee else "My attendance" }}</td><td>{{ a.attendance_date }}</td><td>{{ a.status }}</td><td>{{ a.work_minutes if a.work_minutes is not none else "-" }}</td><td>{{ a.late_minutes }}</td></tr>{% else %}<tr><td colspan="5">No records found.</td></tr>{% endfor %}
+</tbody></table></div></div></div>{% endblock %}

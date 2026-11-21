@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: smartattendance-demo
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m app.seed_demo && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: APP_NAME
+        value: Smart Attendance Demo
+      - key: APP_ENV
+        value: production
+      - key: APP_DEMO_DATA
+        value: "1"
+      - key: APP_SECRET_KEY
+        generateValue: true
+      - key: DB_URL
+        fromDatabase:
+          name: smartattendance-demo-db
+          property: connectionString
+
+databases:
+  - name: smartattendance-demo-db
+    databaseName: smartattendance
+    user: smartattendance
+    plan: free
