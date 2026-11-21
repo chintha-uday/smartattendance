@@ -68,7 +68,12 @@ class Attendance(Base):
 
 class AttendanceSession(Base):
     __tablename__ = "AttendanceSessions"
-    __table_args__ = (CheckConstraint("CheckOutTime IS NULL OR CheckOutTime > CheckInTime", name="CK_Session_Time"),)
+    __table_args__ = (
+        CheckConstraint(
+            '"CheckOutTime" IS NULL OR "CheckOutTime" > "CheckInTime"',
+            name="CK_Session_Time",
+        ),
+    )
     id: Mapped[int] = mapped_column("SessionId", Integer, primary_key=True)
     attendance_id: Mapped[int] = mapped_column("AttendanceId", ForeignKey("Attendance.AttendanceId"), nullable=False)
     check_in_time: Mapped[datetime] = mapped_column("CheckInTime", DateTime, nullable=False)
